@@ -6,11 +6,11 @@ import fontGot from './';
 
 test(t => {
 	return fontGot('Droid Sans', {
-		query: {
-			variant: 'regular'
-		}
+		variant: 'regular'
 	}).then(res => {
 		t.true(res.statusCode === 200);
+	}, () => {
+		t.fail('Failed');
 	}).catch(err => {
 		t.fail(err.getMessage());
 	});

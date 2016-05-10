@@ -5,30 +5,33 @@ const got = require('got');
 const endpoint = 'http://fonts.googleapis.com/css?';
 
 function fontGot(family, opts) {
-	if (typeof family !== 'string') {
-		return Promise.reject(new TypeError(`Expected font family to be a string`));
-	}
+	return new Promise((resolve, reject) => {
+		if (typeof family !== 'string') {
+			return reject(new TypeError(`Expected font family to be a string`));
+		}
 
-	opts = opts || {};
+		opts = Object.assign({
+			family: family
+		}, opts);
 
-	opts.query = Object.assign({
-		family: family
-	}, opts.query);
+		if (opts.variant) {
+			opts.family = `${opts.family}:${opts.variant}`;
+			delete opts.variant;
+		}
 
-	console.log(opts);
+		got(endpoint, {
+			query: qs.stringify(opts)
+		}).then(res => {
+			console.log(res.statusCode);
+			if (res.statusCode !== 200) {
+				reject();
+			}
 
-	if (opts.query.variant) {
-		opts.query.family = `${opts.query.family}:${opts.query.variant}`;
-		delete opts.query.variant;
-	}
-
-	let url = `${endpoint}${qs.stringify(opts.query)}`;
-	console.log(url);
-	if (opts.stream) {
-		return got.stream(url, opts);
-	}
-
-	return got(url, opts);
+			resolve(1);
+		}).catch(err => {
+			throw err;
+		});
+	});
 }
 
 module.exports = fontGot;

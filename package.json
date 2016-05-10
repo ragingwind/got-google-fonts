@@ -19,7 +19,11 @@
     "index.js"
   ],
   "keywords": [
-    ""
+    "font",
+    "fonts",
+    "download",
+    "Google Fonts",
+    "Google Web Fonts"
   ],
   "dependencies": {
     "got": "^6.3.0"
