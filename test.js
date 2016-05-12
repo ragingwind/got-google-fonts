@@ -1,17 +1,15 @@
 import test from 'ava';
-// import tmpdir from 'random-os-tmpdir';
+import tmpdir from 'os-random-tmpdir';
 import fontGot from './';
 
-// var tmp = tmpdir();
+var tmp = tmpdir('got-google-fonts');
 
 test(t => {
-	return fontGot('Droid Sans', {
+	return fontGot(tmp, 'Droid Sans', {
 		variant: 'regular'
 	}).then(res => {
-		t.true(res.statusCode === 200);
+		t.true(res.length > 0);
 	}, () => {
 		t.fail('Failed');
-	}).catch(err => {
-		t.fail(err.getMessage());
 	});
 });

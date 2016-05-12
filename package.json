@@ -26,7 +26,10 @@
     "Google Web Fonts"
   ],
   "dependencies": {
-    "got": "^6.3.0"
+    "css": "^2.2.1",
+    "download": "^4.4.3",
+    "got": "^6.3.0",
+    "os-random-tmpdir": "^0.1.1"
   },
   "devDependencies": {
     "ava": "^0.14.0",
