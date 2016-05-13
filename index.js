@@ -45,6 +45,8 @@ function parseFontSrc(content) {
 
 function fontGot(dest, family, opts) {
 	return new Promise((resolve, reject) => {
+		dest = dest || process.cwd();
+
 		if (typeof family !== 'string') {
 			return reject(new TypeError(`Expected font family to be a string`));
 		}
