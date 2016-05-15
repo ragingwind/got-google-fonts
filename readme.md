@@ -15,24 +15,30 @@ $ npm install --save got-google-fonts
 ```js
 const googleFontDownload = require('got-google-fonts');
 
-googleFontDownload('Roboto', {
+googleFontDownload(process.cwd(), 'Roboto', {
 	subset: 'greek'
 	variant: 'italic'
-}).then();
+}).then(files => {
+	console.log('Will returns those of files downloaded at dest', files);
+});
 
 ```
 
 ## API
 
-### googleFontDownload(family, [options])
+### googleFontDownload(dest, family, [options])
 
-#### options.
+#### dest
 
-You can use all of options about [Google web fonts APIs](https://developers.google.com/fonts/docs/developer_api#a_quick_example) except `kind` which is not alterable, default is `webfonts#webfont`.
+The path to download
 
-##### family
+#### family
 
 The name of the family
+
+#### options
+
+You can use all of options about [Google web fonts APIs](https://developers.google.com/fonts/docs/developer_api#a_quick_example) except `kind` which is not alterable, default is `webfonts#webfont`. It will be passed into querystring.
 
 ##### subset
 
