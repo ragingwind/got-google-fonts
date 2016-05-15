@@ -1,3 +1,4 @@
+import fs from 'fs';
 import test from 'ava';
 import tmpdir from 'os-random-tmpdir';
 import fontGot from './';
@@ -9,6 +10,7 @@ test(t => {
 		variant: 'regular'
 	}).then(res => {
 		t.true(res.length > 0);
+		t.true(fs.existsSync(res[0].path));
 	}, () => {
 		t.fail('Failed');
 	});
