@@ -68,7 +68,7 @@ function fontGot(dest, family, opts) {
 			}
 
 			const fonts = parseFontSrc(res.body);
-			const down = new Download({mode: 755});
+			const down = new Download({mode: 644});
 
 			if (fonts.length > 0) {
 				fonts.forEach(font => down.get(font.src.url));
