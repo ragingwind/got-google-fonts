@@ -27,9 +27,11 @@
   ],
   "dependencies": {
     "css": "^2.2.1",
-    "download": "^4.4.3",
+    "get-stream": "^2.2.0",
     "got": "^6.3.0",
-    "os-random-tmpdir": "^0.1.1"
+    "mkdirp": "^0.5.1",
+    "os-random-tmpdir": "^0.1.1",
+    "pify": "^2.3.0"
   },
   "devDependencies": {
     "ava": "^0.14.0",
