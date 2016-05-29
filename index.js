@@ -1,10 +1,11 @@
 'use strict';
 
+const path = require('path');
 const qs = require('querystring');
-const got = require('got');
 const css = require('css');
 const endpoint = 'http://fonts.googleapis.com/css?';
-const Download = require('download');
+const got = require('got');
+const download = require('./download');
 
 function parseFontSrc(content) {
 	const style = css.parse(content);
@@ -62,28 +63,22 @@ function fontGot(dest, family, opts) {
 
 		got(endpoint, {
 			query: qs.stringify(opts)
-		}).then(res => {
+		})
+		.then(res => {
 			if (res.statusCode !== 200) {
 				reject(res.error);
 			}
 
-			const fonts = parseFontSrc(res.body);
-			const down = new Download({mode: 644});
+			const fonts = parseFontSrc(res.body).map(f => {
+				f.dest = path.join(dest, path.basename(f.src.url));
+				return f;
+			});
 
-			if (fonts.length > 0) {
-				fonts.forEach(font => down.get(font.src.url));
-				down.dest(dest).run((err, files) => {
-					if (err) {
-						reject(err);
-					}
-
-					resolve(files);
-				});
-			} else {
-				resolve([]);
-			}
-		}).catch(err => {
-			reject(err);
+			Promise.all(fonts.map(f => {
+				return download(f.src.url, f.dest);
+			}))
+			.then(resolve)
+			.catch(reject);
 		});
 	});
 }

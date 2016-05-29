@@ -8,9 +8,10 @@ var tmp = tmpdir('got-google-fonts');
 test(t => {
 	return fontGot(tmp, 'Droid Sans', {
 		variant: 'regular'
-	}).then(res => {
+	})
+	.then(res => {
 		t.true(res.length > 0);
-		t.true(fs.existsSync(res[0].path));
+		t.true(fs.existsSync(res[0]));
 	}, () => {
 		t.fail('Failed');
 	});
